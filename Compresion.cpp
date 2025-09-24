@@ -1,22 +1,36 @@
 #include <iostream>
 #include <fstream>
 #include <cstring>
+#include <map>
 
 using namespace std;
 
 int main() {
-    ifstream archivo("pruebas.txt"); 
+    ifstream archivo("pruebas.txt");
+    map<string, char> letras;
 
     if (!archivo) {
         cout << "No se pudo abrir el archivo." << endl;
         return 1;
     }
 
-    const int TAM = 100;
-    char linea[TAM];
+    string contenido;
+    string temp;
+    
+    // Leer todo el contenido del archivo
+    while (getline(archivo, temp)) {
+        contenido += temp + "\n";
+    }
 
-    while (archivo.getline(linea, TAM)) {
-        cout << linea << endl;
+    // Imprimir caracter por caracter
+    cout << "Contenido del archivo caracter por caracter:" << endl;
+    for (size_t i = 0; i < contenido.size(); ++i) {
+        char c = contenido[i];
+        if (c == '\n') {
+            cout << "\\n" << endl; // Mostrar saltos de línea visiblemente
+        } else {
+            cout << c << endl;
+        }
     }
 
     archivo.close();
